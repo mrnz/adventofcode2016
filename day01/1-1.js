@@ -31,7 +31,7 @@ module.exports = data => {
       direction = direction === -1 ? directions.length - 1 : direction;
     }
 
-    directions[direction](moveLength)
+    directions[direction](moveLength);
     
   });
 

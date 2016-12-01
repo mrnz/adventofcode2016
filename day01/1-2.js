@@ -9,7 +9,20 @@ module.exports = data => {
       directions,
       commands = data.split(', '),
       visitedPositions = {'0x0':1},
-      result = false;
+      isResultFound = false,
+      getNewDirection;
+
+  getNewDirection = ( leftOrRight, oldDir, allDirectionsArr ) => {
+    if( leftOrRight === 'R' ){
+      
+      return oldDir + 1 === allDirectionsArr.length ? 0 : oldDir + 1; 
+
+    }else if ( leftOrRight === 'L' ){
+
+      return oldDir -1 === -1 ? allDirectionsArr.length - 1 : oldDir -1;
+
+    }
+  };
 
   directions = [
     val=>y+=val,
@@ -20,30 +33,20 @@ module.exports = data => {
 
   for ( let value of commands ){
 
-    let turnDirection = value[0],
-        moveLength = parseInt( value.substring(1) ),
-        label = '';
+    let label = '',
+        moveLength = parseInt( value.substring(1) );
 
-    if( turnDirection === 'R' ){
-      
-      direction++;
-      direction = direction === directions.length ? 0 : direction; 
+    direction = getNewDirection( value[0], direction, directions );
 
-    }else if ( turnDirection === 'L' ){
-
-      direction--;
-      direction = direction === -1 ? directions.length - 1 : direction;
-
-    }
-    
-    for( let i = 0; i<moveLength; i++){
+    for( let i = 0; i < moveLength; i++){
       
       directions[direction](1);
+
       label = ''+x+'x'+y;  
       
       if( visitedPositions[label] === 1 ){
         
-        result = true;
+        isResultFound = true;
         break; 
 
       }else{
@@ -54,7 +57,7 @@ module.exports = data => {
 
     }
     
-    if( result )break;
+    if( isResultFound )break;
 
   }
 
