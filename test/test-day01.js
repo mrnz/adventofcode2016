@@ -30,8 +30,12 @@ describe('Day 1', function() {
       assert.equal( 0, day1part2('') );
     });
 
-    it('should return false when input is R8, R4, R4, R8', function () {
+    it('should return 4 when input is R8, R4, R4, R8', function () {
       assert.equal( 4, day1part2('R8, R4, R4, R8') );
+    });
+
+    it('should return 4 when input is R8, R4, R4, R8', function () {
+      assert.equal( 4, day1part2('L8, L4, L4, L8') );
     });
 
   });
