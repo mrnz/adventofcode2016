@@ -27,7 +27,7 @@ module.exports = data => {
 
       for( let i = 0; i < steps; i++ ){
         func();
-      };
+      }
 
     });
 

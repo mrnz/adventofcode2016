@@ -1,6 +1,6 @@
 var assert = require('assert'),
     day2part1 = require('../day02/2-1.js');
-    // day1part2 = require('../day01/1-2.js');
+    day2part2 = require('../day02/2-2.js');
 
 describe('Day 1', function() {
 
@@ -16,20 +16,16 @@ describe('Day 1', function() {
 
   });
 
-  // describe('Part Two', function() {
+  describe('Part Two', function() {
     
-  //   it('should return 0 when input string is empty', function () {
-  //     assert.equal( 0, day1part2('') );
-  //   });
+    it('should return 5DB3 when instructions are ULL RRDDD LURDL UUUUD', function () {
+      assert.equal( '5DB3', day2part2('ULL\nRRDDD\nLURDL\nUUUUD') );
+    });
 
-  //   it('should return 4 when input is R8, R4, R4, R8', function () {
-  //     assert.equal( 4, day1part2('R8, R4, R4, R8') );
-  //   });
-
-  //   it('should return 4 when input is L8, L4, L4, L8', function () {
-  //     assert.equal( 4, day1part2('L8, L4, L4, L8') );
-  //   });
-
-  // });
+    it('should return 9555 when instructions are RRRRRR LLLLLLLLLL UUUUUUUUUU DDDDDDDDDD', function () {
+      assert.equal( '9555', day2part2('RRRRRR\nLLLLLLLLLL\nUUUUUUUUUU\nDDDDDDDDDD') );
+    });
+    
+  });
 
 });
