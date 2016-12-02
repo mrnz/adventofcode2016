@@ -20,23 +20,23 @@ module.exports = data => {
     'U': () =>{ 
       if( positionMatrix[actualPosition.y - 1] !== undefined && positionMatrix[actualPosition.y - 1][actualPosition.x] !== undefined ){
         --actualPosition.y;
-      };
+      }
     },
     'D': () => { 
       if( positionMatrix[actualPosition.y + 1] !== undefined && positionMatrix[actualPosition.y + 1][actualPosition.x] !== undefined ){
         ++actualPosition.y;
-      };
+      }
     },
     'R': () => { 
       if( positionMatrix[actualPosition.y][actualPosition.x + 1] !== undefined ){
         ++actualPosition.x;
-      };
+      }
     },
     'L': () => { 
       // actualPosition.x += actualPosition.x < 2 ? 1 : 0,
       if( positionMatrix[actualPosition.y][actualPosition.x - 1] !== undefined ){
         --actualPosition.x;
-      };
+      }
     }
   };
 
