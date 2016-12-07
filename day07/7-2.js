@@ -32,11 +32,11 @@ module.exports = data => {
     
     outsideBracketData.forEach( str => {
       
-      var patt = /(.).\1/y;
-      var patterFound,
+      var i = 0,
+        patterFound,
+        checkPattern,
         reversedPattern, 
-        i = 0,
-        checkPattern; 
+        patt = new RegExp('(.).\\1','y'); 
 
       checkPattern = x => {
         if( reversedPattern.test(x) ){
