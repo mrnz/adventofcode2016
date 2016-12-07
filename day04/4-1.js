@@ -30,7 +30,7 @@ console.log(data)
       })
       .slice(0,5)
       .reduce( (prev,curr) => prev+curr[0], '' );
-      console.log( line +' === ' + sum );
+     
     result += line === sum ? val : 0;
   
   });
