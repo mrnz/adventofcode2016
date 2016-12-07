@@ -33,7 +33,9 @@ module.exports = data => {
    
       var res = str.match(/(.)(.)\2\1/g);  
       
-      res !== null && res.forEach( x => result = x[0] !== x[1] ? true : result );
+      if( res !== null ){ 
+      	res.forEach( x => result = x[0] !== x[1] ? true : result );
+      }
       
     });
 
