@@ -32,15 +32,17 @@ module.exports = data => {
     
     outsideBracketData.forEach( str => {
       
-      var patt = /(.).\1/y, 
-        patterFound,
+      var patt = /(.).\1/y;
+      var patterFound,
         reversedPattern, 
         i = 0,
-        checkPattern = (x)=>{
-          if( reversedPattern.test(x) ){
-            result = true;
-          }
-        };
+        checkPattern; 
+
+      checkPattern = x => {
+        if( reversedPattern.test(x) ){
+          result = true;
+        }
+      };
       
       while( i !== str.length ){
 
