@@ -3,7 +3,7 @@ module.exports = data => {
   
   var result = 0;
   data = data.split('\n');
-console.log(data)
+
   data.forEach( line => {
     
     var tail, sum, val;
