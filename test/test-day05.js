@@ -23,7 +23,7 @@ describe('Day 5', function() {
       assert.equal( 'd7342f64', day5part2( 'abc', 2 ) );
     });
 
-    it('should return 3010070f when input is abc and number of zeros is 2', function () {
+    it('should return 3010070f when input is abc and number of zeros is 1', function () {
       assert.equal( '3010070f', day5part2( 'abc', 1 ) );
     });
 
