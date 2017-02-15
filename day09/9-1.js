@@ -1,31 +1,30 @@
 'use strict';
 module.exports = data => {
 
-  var result = 0;
-  
-  for( let i = 0; i < data.length; i++ ){
+    var result = 0;
 
-    let marker = /^\((\d+)x(\d+)\)/.exec( data.substr(i) );
+    for (let i = 0; i < data.length; i++) {
 
-    if( marker === null ){
-      result++;
-      continue; 
+        let marker = /^\((\d+)x(\d+)\)/.exec(data.substr(i));
+
+        if (marker === null) {
+            result++;
+            continue;
+        }
+
+        let elementToRepeat,
+            markerLength = marker[0].length,
+            matchLength = parseInt(marker[1]),
+            repetition = parseInt(marker[2]);
+
+        elementToRepeat = data.substr(i + markerLength, matchLength);
+
+        result += elementToRepeat.length * repetition;
+
+        i += matchLength + markerLength - 1;
+
     }
-    
-    let elementToRepeat,
-        markerLength = marker[0].length,
-        matchLength = parseInt( marker[1] ),
-        repetition = parseInt( marker[2] );
 
-    elementToRepeat = data.substr( i + markerLength, matchLength);
- 
-    result += elementToRepeat.length * repetition; 
-
-    i += matchLength + markerLength - 1;
-
-  }
-
-  return result;
+    return result;
 
 };
-
