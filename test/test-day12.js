@@ -62,6 +62,10 @@ describe('Day 12', function() {
         assert.equal(42 , day12.exec(testInput,{},'a') );
     });
 
+    it('should throw error when command is unrecognized', function () {
+        assert.throws( day12.interpretInstruction, Error, "Command not found");
+    });
+
   });
 
   describe('Part Two', function() {
