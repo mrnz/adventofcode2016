@@ -63,8 +63,9 @@ describe('Day 12', function() {
     });
 
     it('should throw error when command is unrecognized', function () {
-        assert.throws( day12.interpretInstruction, Error, "Command not found");
+        assert.throws(()=>{ throw day12.interpretInstruction('xxx a', {a:0},0 )},  /command not found/);
     });
+
 
   });
 
