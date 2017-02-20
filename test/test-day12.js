@@ -67,7 +67,7 @@ describe('Day 12', function() {
   describe('Part Two', function() {
 
     it('should increases by 42 when input is test input and initial value for a is 1', function () {
-        assert.equal(42 , day12.exec(testInput,{a:1},'c') );
+        assert.equal(42 , day12.exec(testInput,{a:1},'a') );
     });
 
   });
