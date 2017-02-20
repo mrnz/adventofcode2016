@@ -11,7 +11,7 @@ describe('Day 12', function() {
     });
 
     it('should return {a:0,b:0,c:0,d:0} when getMemo is called', function () {
-        var toTest = day12.getMemo( 'abc', 1 )
+        var toTest = day12.getMemo( 'abc', 1 );
         assert.equal( 0, toTest.a);
         assert.equal( 0, toTest.b);
         assert.equal( 0, toTest.c);
