@@ -46,7 +46,7 @@ var helpers = module.exports = {
 
         while(idx <= instructions.length-1){
             [memo, idx] = this.interpretInstruction(instructions[idx], memo, idx);
-        };
+        }
 
         return memo[targetValue];
 
