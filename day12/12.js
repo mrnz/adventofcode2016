@@ -41,13 +41,11 @@ var helpers = module.exports = {
     exec( data, setup = {}, targetValue = 'a' ) {
 
         var idx = 0,
-            n = 0,
             instructions = this.prepareDate(data),
             memo = Object.assign(this.getMemo(),setup);
 
         while(idx <= instructions.length-1){
             [memo, idx] = this.interpretInstruction(instructions[idx], memo, idx);
-            n++;
         };
 
         return memo[targetValue];
