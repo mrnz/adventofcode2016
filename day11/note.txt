@@ -1,0 +1,7 @@
+When I got to stage 2 of this problem I threw my part 1 code away and started again from scratch. I suggest you do the same.
+For part 1 I modelled the state much as you are doing: an array of floors each containing zero or more items.
+For part 2 the model was based on pairs of compatible items, so for the initial example state with
+the elevator on floor 1, HG on 2, HM on 1, LG on 3 and LM on 1 the initial state is (1, ((2,1), (3,1)))
+and the desired final state (4, ((4,4), (4,4))). 
+All tuples so you can simply store a set of states you've seen but if the H and L items were all swapped
+the state is the same as they're stored in sorted order so all of the different permutations count as one.
