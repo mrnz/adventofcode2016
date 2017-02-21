@@ -31,7 +31,7 @@ const app = module.exports = {
                 if(isOK){
                     result = true;
                     break;
-                };
+                }
             }
         }
         return result;
@@ -44,7 +44,7 @@ const app = module.exports = {
         while(resultArr.length<nth){
             if(app.checkIfKeyIsValid(idx, salt)){
               resultArr.push(idx);
-            };
+            }
             idx++;
         }
 
