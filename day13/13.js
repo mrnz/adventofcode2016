@@ -1,42 +1,99 @@
 'use strict';
-var helpers = module.exports = {
+module.exports = {
 
-    maze: [],
-    favoriteNumber: 10,
-    target: [],
-    calc(x,y) {
-        var a = x*x + 3*x + 2*x*y + y + y*y + this.favoriteNumber;
+    queue: [],
+    global: [],
+    favoriteNumber: false,
 
-        a = a.toString(2)
-             .split('')
-             .reduce((prev,curr)=>prev+=curr === '0'?0:1, 0);
+    getNeWPosition(history = [], steps = 0, position = [1,1], ) {
+        class Pass{
 
-        a = a%2 ? '#' : '.';
-        return a;
-    },
-
-    generateInitMaze(x,y){
-        var col = [];
-        for(var i =0; i<y;i++){
-            var row = '';
-            for(var j=0; j<x; j++){
-                row += helpers.calc(j,i);
+            constructor(history, steps, position){
+                this.position = position;
+                this.steps = steps;
+                this.history = history;
             }
-            col.push(row);
+
+            nextSteps(){
+
+                var x = this.position[0],
+                    y = this.position[1];
+
+                return [[x,y-1],[x,y+1],[x-1,y],[x+1,y]]
+                    .filter(item => item[0] > -1 && item[1] > -1 )
+                    .filter(item => this.history.indexOf( item[0]+'x'+item[1]) === -1 )
+                    .filter(this.calc);
+            }
+
+            calc(item) {
+                var x = item[0],
+                    y = item[1];
+
+                return (x*x + 3*x + 2*x*y + y + y*y + 1358)
+                     .toString(2)
+                     .split('')
+                     .reduce((prev,curr)=>prev+=curr === '0' ? 0 : 1, 0)
+                     % 2 ? false : true;
+            }
+
+        };
+        return new Pass(history, steps, position);
+    },
+
+    execPart1(x,y, favoriteNumber = 10) {
+
+        var result = false,
+            initialPosition = this.getNeWPosition();
+
+        this.queue = [];
+        this.favoriteNumber = favoriteNumber;
+        this.queue.push(initialPosition);
+
+        while( !result && this.queue.length ){
+
+            let thisElem = this.queue.shift(),
+                nextSteps = thisElem.nextSteps();
+
+            if( x === thisElem.position[0] && y === thisElem.position[1]){
+                  result = thisElem.steps;
+            }
+
+            thisElem.history.push(thisElem.position[0]+'x'+thisElem.position[1]);
+
+            nextSteps.forEach(step=>{
+                this.queue.push(this.getNeWPosition(thisElem.history,thisElem.steps+1,step));
+
+            });
+
         }
-        this.maze = col;
+        return result;
     },
 
-    display() {
-        var temp = this.maze.reduce((prev,curr)=>prev+curr+'\n','');
-        console.log(temp);
-    },
+    execPart2(limit, favoriteNumber = 10) {
+        var n = this.getNeWPosition();
+        this.queue = [];
+        this.queue.push(n);
 
-    exec(x,y) {
-        this.target = [x,y];
-        this.generateInitMaze(x+1,y+1);
-        this.display();
+        this.favoriteNumber = favoriteNumber;
+
+        while( this.queue.length ){
+
+            let thisElem = this.queue.shift(),
+                nextSteps = thisElem.nextSteps();
+
+            if(thisElem.history.indexOf(thisElem.position[0]+'x'+thisElem.position[1]) === -1){
+                thisElem.history.push(thisElem.position[0]+'x'+thisElem.position[1]);
+                this.global.push(thisElem.position[0]+'x'+thisElem.position[1]);
+            }
+
+            nextSteps.forEach(x=>{
+                if(thisElem.steps+1 <= limit){
+                    this.queue.push(this.getNeWPosition(thisElem.history,thisElem.steps+1,x));
+
+                }
+            });
+
+        }
+        return this.global.length;
     }
-
 };
-helpers.exec(7,4)
