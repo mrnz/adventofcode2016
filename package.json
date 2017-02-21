@@ -18,6 +18,7 @@
   "homepage": "https://github.com/mrnz/adventofcode2016#readme",
   "dependencies": {
     "codecov.io": "^0.1.6",
+    "crypto": "0.0.3",
     "istanbul": "^0.4.5",
     "md5": "^2.2.1",
     "mocha": "^3.2.0"
