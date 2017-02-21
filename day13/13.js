@@ -5,31 +5,32 @@ module.exports = {
     global: [],
     favoriteNumber: false,
 
-    getNeWPosition(history = [], steps = 0, position = [1,1], ) {
+    getNeWPosition(history = [], steps = 0, position = [1,1] ) {
         class Pass{
 
-            constructor(history, steps, position){
+            constructor(history, steps, position, favoriteNumber){
                 this.position = position;
                 this.steps = steps;
                 this.history = history;
+                this.favoriteNumber = favoriteNumber;
             }
 
             nextSteps(){
-
                 var x = this.position[0],
                     y = this.position[1];
 
                 return [[x,y-1],[x,y+1],[x-1,y],[x+1,y]]
                     .filter(item => item[0] > -1 && item[1] > -1 )
                     .filter(item => this.history.indexOf( item[0]+'x'+item[1]) === -1 )
-                    .filter(this.calc);
+                    .filter(this.calc.bind(this.favoriteNumber));
             }
 
             calc(item) {
                 var x = item[0],
                     y = item[1];
 
-                return (x*x + 3*x + 2*x*y + y + y*y + 1358)
+
+                return (x*x + 3*x + 2*x*y + y + y*y + this)
                      .toString(2)
                      .split('')
                      .reduce((prev,curr)=>prev+=curr === '0' ? 0 : 1, 0)
@@ -37,16 +38,17 @@ module.exports = {
             }
 
         };
-        return new Pass(history, steps, position);
+        return new Pass(history, steps, position, this.favoriteNumber);
     },
 
     execPart1(x,y, favoriteNumber = 10) {
 
         var result = false,
-            initialPosition = this.getNeWPosition();
+            initialPosition;
 
         this.queue = [];
         this.favoriteNumber = favoriteNumber;
+        initialPosition = this.getNeWPosition();
         this.queue.push(initialPosition);
 
         while( !result && this.queue.length ){
@@ -70,9 +72,9 @@ module.exports = {
     },
 
     execPart2(limit, favoriteNumber = 10) {
-        var n = this.getNeWPosition();
+        var initialPosition = this.getNeWPosition();
         this.queue = [];
-        this.queue.push(n);
+        this.queue.push(initialPosition);
 
         this.favoriteNumber = favoriteNumber;
 
