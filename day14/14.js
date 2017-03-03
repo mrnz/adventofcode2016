@@ -8,7 +8,6 @@ module.exports = {
 
     generateStretchedHash(input, times = 2016) {
         while (times--) {
-            console.log(times);
             input = crypto.createHash('md5').update(input).digest("hex");
         }
         return crypto.createHash('md5').update(input).digest("hex");
@@ -50,7 +49,6 @@ module.exports = {
             resultArr = [],
             cache = [],
             hasher = part2 ? this.generateStretchedHash : this.generateHash;
-
 
         while(resultArr.length<nth){
             if(this.checkIfKeyIsValid(idx, salt, hasher, cache)){
