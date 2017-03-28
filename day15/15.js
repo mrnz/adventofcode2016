@@ -12,19 +12,21 @@ module.exports = {
         });
     },
 
-    calcAvailable(row) {
-
-        console.log( row.actual_position - row.positions);
-
+    calcAvailable(row, time) {
+        return (row.actual_position + time + row.disk_nr -1) % row.positions;
     },
 
     init(input) {
-        var input = this.parseInput(input);
+        var sume = true,
+            time = 0,
+            input = this.parseInput(input);
 
-        this.calcAvailable(input[0]);
+        while(sume) {
+            sume = input.reduce((prev,curr)=>prev + this.calcAvailable(curr, time),0);
+            time++;
+        }
 
+        return time-2;
     },
 
-
-
-}
+};
