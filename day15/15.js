@@ -8,7 +8,7 @@ module.exports = {
                 disk_nr: parseInt(numbers[0]),
                 positions: parseInt(numbers[1]),
                 actual_position: parseInt(numbers[3]),
-            }
+            };
         });
     },
 
@@ -19,14 +19,14 @@ module.exports = {
     init(input) {
         var sume = true,
             time = 0,
-            input = this.parseInput(input);
+            inputParsed = this.parseInput(input);
 
         while(sume) {
-            sume = input.reduce((prev,curr)=>prev + this.calcAvailable(curr, time),0);
+            sume = inputParsed.reduce((prev,curr)=>prev + this.calcAvailable(curr, time),0);
             time++;
         }
 
         return time-2;
-    },
+    }
 
 };
