@@ -1,4 +1,4 @@
-# Day 15: Day 16: Dragon Checksum
+# Day 16: Dragon Checksum
 
 ### --- Part One ---
 
