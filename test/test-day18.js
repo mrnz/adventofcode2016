@@ -3,7 +3,7 @@ var assert = require('assert'),
 
 describe('Day 18', function() {
 
-  describe('Part One', function() {
+  describe('Part One and Two', function() {
 
     it('getTitleState function should return ^ when input is .^^', function () {
         assert.equal( '^', day18.getTitleState( '.^^' ) );
@@ -76,14 +76,6 @@ describe('Day 18', function() {
     it('init function should return 38 when input is .^^.^.^^^^ and number of rows 10', function () {
         assert.equal( 38, day18.init('.^^.^.^^^^', 10) );
     });
-
-  });
-
-  describe('Part Two', function() {
-
-    // it('init function should return 370 when input is ihgpwlah and part 2 param is true', function () {
-    //     assert.equal( 370, day18.init( 'ihgpwlah', true ) );
-    // });
 
   });
 
