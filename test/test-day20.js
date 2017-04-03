@@ -10,8 +10,8 @@ describe('Day 20', function() {
     });
 
     describe('Part Two', function() {
-        it('init function should return 0 when input is [1-2, 5-6]', function () {
-            assert.equal( 2, day20.init(['1-2', '5-6'],true) );
+        it('init function should return 0 when input is [1-2, 5-6, 7-9]', function () {
+            assert.equal( 2, day20.init(['1-2', '5-6', '7-9'],true) );
         });
     });
 
