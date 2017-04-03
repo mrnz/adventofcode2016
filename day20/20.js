@@ -47,7 +47,7 @@ module.exports = {
         }
 
         for(let i=1; i<solution.length; i++){
-            result += solution[i][0] - solution[i-1][1]-1
+            result += solution[i][0] - solution[i-1][1]-1;
         }
 
         return result;
