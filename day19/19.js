@@ -2,50 +2,15 @@
 
 module.exports = {
 
-    init(input) {
-
-        var i = 0,
-            skipped = [],
-            stateArray = Array(input).fill(true);
-
-        while (skipped.length < input-1) {
-
-            let next = stateArray[i+1] ? i+1 : 1;
-
-            if(stateArray[i]) {
-
-                if(stateArray[next]){
-
-                    stateArray[next] = false;
-                    skipped.push(next);
-
-                } else {
-
-                    let j = i+2;
-                    while(!stateArray[j]) {
-                        j = stateArray[j+1]===undefined?0:j+1;
-                    }
-
-                    stateArray[j] = false;
-                    skipped.push(j);
-
-                }
-
-            }
-
-            i = stateArray[i+1]===undefined?0:i+1;
-
-        }
-
-        return stateArray.indexOf(true) + 1;
-
+    init(i) {
+        return i - ( ( 2 << Math.log2( i ) ) - i ) + 1;
     },
 
     init2(input) {
 
         var i = 0,
             skipped = [],
-            stateArray = Array(input).fill(true).map((x,idx)=>[idx,idx]);
+            stateArray = Array(8).fill(true).map((x,idx)=>[idx,idx]);
 
 
 
@@ -80,16 +45,17 @@ module.exports = {
             if(stateArray.length === 2) {
                 // stateArray.splice(i-2,1);
                 // console.log(stateArray[0] + 1);
+                console.log(i);
                 console.log(stateArray);
                 stateArray = [];
             } else {
-                // stateArray.splice(next,1);
-                stateArray = stateArray.filter((x,idx) => idx !== i);
+                stateArray.splice(next,1);
+                // stateArray = stateArray.filter((x,idx) => idx !== i);
 
             }
 
-            // i = (i > stateArray.length - 2) ? 0 : i+1;
-            i++
+            i = (i > stateArray.length - 2) ? 0 : i+1;
+             //i++
 
 
         }

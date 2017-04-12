@@ -3,7 +3,7 @@ module.exports = data => {
   
   if( data === '' )return 0;
 
-  var x = 0,
+  var x  = 0,
       y = 0, 
       direction = 0,
       directions,

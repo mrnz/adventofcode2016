@@ -1,65 +1,48 @@
 'use strict';
 module.exports = data => {
-  
-  data = data.split('\n');
-  
+
   var result = '',
       actualPosition = {x:0,y:2},
       instructions,
-      positionMatrix,
-      calculatePosition;
-  
-  positionMatrix = [  [undefined,undefined,1,undefined,undefined],
-                      [undefined,2,3,4,undefined],
+      positionMatrix;
+
+  positionMatrix = [  [false,false,1,false,false],
+                      [false,2,3,4,false],
                       [5,6,7,8,9],
-                      [undefined,'A','B','C',undefined],
-                      [undefined,undefined,'D',undefined,undefined]
+                      [false,'A','B','C',false],
+                      [false,false,'D',false,false]
                   ];
 
   instructions = {
-    'U': () =>{ 
-      if( positionMatrix[actualPosition.y - 1] !== undefined && positionMatrix[actualPosition.y - 1][actualPosition.x] !== undefined ){
+    'U': () =>{
+      if( positionMatrix[actualPosition.y - 1] && positionMatrix[actualPosition.y - 1][actualPosition.x] ){
         --actualPosition.y;
       }
     },
-    'D': () => { 
-      if( positionMatrix[actualPosition.y + 1] !== undefined && positionMatrix[actualPosition.y + 1][actualPosition.x] !== undefined ){
+    'D': () => {
+      if( positionMatrix[actualPosition.y + 1] && positionMatrix[actualPosition.y + 1][actualPosition.x] ){
         ++actualPosition.y;
       }
     },
-    'R': () => { 
-      if( positionMatrix[actualPosition.y][actualPosition.x + 1] !== undefined ){
+    'R': () => {
+      if( positionMatrix[actualPosition.y][actualPosition.x + 1] ){
         ++actualPosition.x;
       }
     },
-    'L': () => { 
-      // actualPosition.x += actualPosition.x < 2 ? 1 : 0,
-      if( positionMatrix[actualPosition.y][actualPosition.x - 1] !== undefined ){
+    'L': () => {
+      if( positionMatrix[actualPosition.y][actualPosition.x - 1] ){
         --actualPosition.x;
       }
     }
   };
 
-  calculatePosition = dataIn => {
+  data.split('\n').forEach( input => {
 
-    var commandArr = dataIn.match(/([A-Z])\1{0,}/g);
-
-    commandArr.forEach(command => {
-
-      var steps = command.length,
-          func = instructions[ command[0] ]; 
-
-      for( let i = 0; i < steps; i++ ){
-        func();
-      }
-
-    });
+    input.split('').forEach(command => instructions[ command ]());
 
     result += positionMatrix[actualPosition.y][actualPosition.x];
 
-  };
-
-  data.forEach( calculatePosition );
+  });
 
   return result;
 
