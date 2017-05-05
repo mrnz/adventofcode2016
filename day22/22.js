@@ -32,16 +32,22 @@ module.exports = {
                 temp[2] = parseInt(x[2]);
                 temp[3] = parseInt(x[3]);
                 temp[4] = parseInt(x[1]);
+
+                if(!temp[2]) {
+                    console.log(x);
+                }
+
                 let obj = {
                     used: temp[2],
-                    avai: temp[3],
                     size: temp[4]
                 };
 
-                if(!res[temp[1]]){
-                    res[temp[1]] = [];
+                if(!res[temp[0]]){
+                    res[temp[0]] = [];
                 }
-                res[temp[1]][temp[0]] = obj;
+
+                res[temp[0]][temp[1]] = [obj.used, obj.size] ;
+
             }
         });
         return res;
@@ -64,34 +70,116 @@ module.exports = {
         return result;
     },
 
-    init2(input) {
-        var map = this.parse(input);
-        var dat = map[0][ map[0].length-1 ].size
-        console.log(map.length);
-        console.log(map[0].length);
-        map.forEach((y,idxY)=>{
-            var row = y.reduce((prev, x, idxX)=>{
-                if(idxX === map[0].length -1 && idxY === 0 ){
-                    return  prev + '  G - ' + x.used;
-                }else if(x.used == 0){
-                    return  prev + '  _  ';
-                }else if( idxY === 0 && idxX === 0){
-                    return  prev + '  (.) ';
-                }else if(x.used > dat){
-                    return prev + '  #  ';
+    print(input) {
+        var toPrint = [];
+
+        input.forEach( (col,xIdx)=>{
+            col.forEach( (row,yIdx)=>{
+
+                var temp;
+                if( !toPrint[yIdx] )toPrint[yIdx] = '';
+                if( row[0] === 0 ){
+                    temp = ' _ ';
+                }else if(row[0]>100){
+                    temp = ' # ';
+                }else if(row.g){
+                    temp = ' G ';
                 }else{
-                    return  prev + (idxX === 0 ? idxY + 1 : '') + '  .  ';
+                    temp = ' . ';
                 }
-
-                return prev + ' '+x.used + '/' + x.size +' ';
-            },'');
-            console.log(row);
-
-            // result is 185
+                toPrint[yIdx] += temp;
+            });
         });
+        toPrint.map(x=>console.log(x));
+    },
+
+    steps: 0,
+
+    move(input, direction, emptyPosition) {
+        var param, switchData, getParams;
+
+        switchData = (input, emptyPosition, param) => {
+            var emptyElem = input[ emptyPosition[0] ] [ emptyPosition[1] ],
+                nextElem = input[ emptyPosition[0]+param[0] ] [ emptyPosition[1]+param[1] ];
+
+            if( nextElem[0] < emptyElem[1] ){
+
+                input[ emptyPosition[0] ] [ emptyPosition[1] ] = [ nextElem[0], emptyElem[1]];
+                input[ emptyPosition[0]+param[0] ] [ emptyPosition[1]+param[1] ] = [ 0, nextElem[1] ];
+
+                input[ emptyPosition[0] ] [ emptyPosition[1] ].g = nextElem.g;
+
+                emptyPosition[0] += param[0];
+                emptyPosition[1] += param[1];
+
+                this.steps++;
+
+                return true;
+            }else{
+                return false;
+            }
+        }
+        getParams = dir => {
+            switch (dir) {
+                case 'up':
+                    return [0,-1];
+                case 'down':
+                    return [0,1];
+                case 'left':
+                    return [-1,0];
+                case 'right':
+                    return [1,0];
+            }
+        }
+
+        return switchData(input, emptyPosition, getParams(direction));;
+    },
+
+    init2(input) {
+        var map = [],
+            emptyPosition = [],
+            target = [];
+
+        map = this.parse(input);
+        map[map.length -1][0].g = true;
 
 
+        emptyPosition[0] = map.length -2;
+        emptyPosition[1] = map[0].length-1;
 
+        // this.print(map);
+
+        var res = true;
+        while(res) {
+            res = this.move(map, 'up', emptyPosition);
+        }
+
+        this.move(map, 'left', emptyPosition)
+        this.move(map, 'left', emptyPosition)
+        this.move(map, 'left', emptyPosition)
+        this.move(map, 'left', emptyPosition)
+        this.move(map, 'left', emptyPosition)
+
+
+        while( !(emptyPosition[1] === 0) ) {
+            this.move(map, 'up', emptyPosition)
+        }
+
+        while( !(emptyPosition[0] === map.length-1) ) {
+            this.move(map, 'right', emptyPosition)
+        }
+
+        while( !map[0][0].g ){
+            this.move(map, 'down', emptyPosition)
+            this.move(map, 'left', emptyPosition)
+            this.move(map, 'left', emptyPosition)
+            this.move(map, 'up', emptyPosition)
+            this.move(map, 'right', emptyPosition)
+        }
+
+        this.print(map);
+        return this.steps;
     }
 
 };
+// result is 185
